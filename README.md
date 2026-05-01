@@ -29,13 +29,14 @@ This project focuses on **Democracy and Civic Engagement**. In a country with ne
 
 ## ✨ Features
 
-- 🧠 **AI-Powered Chat** — Ask any question about Indian elections and get instant, informative answers
-- 📅 **Election Timeline** — Visual, interactive timeline of the Indian electoral process from announcement to result
-- 🎯 **Quiz / Flashcards** — Gamified learning with multiple-choice questions and flashcard-style civic facts
-- 🛡️ **Myth Buster** — Separating facts from rumors about EVMs, NOTA, and the voting process
-- 🏛️ **Constitutional Context** — Covers ECI, Model Code of Conduct, EVMs, NOTA, and more
-- 📱 **Fully Responsive** — Works seamlessly on mobile, tablet, and desktop
-- ⚡ **Fast & Modern UI** — Built with React 19, smooth animations, and a premium dark-mode design
+- 🧠 **AI-Powered Chat** — Ask any question about Indian elections and get instant, informative answers powered by **Google Gemini**.
+- 📅 **Election Timeline** — Visual, interactive timeline of the Indian electoral process from announcement to result.
+- 🎯 **Quiz / Flashcards** — Gamified learning with multiple-choice questions and flashcard-style civic facts.
+- 🛡️ **Myth Buster** — Separating facts from rumors about EVMs, NOTA, and the voting process.
+- ✅ **Personalized Voter Guide** — Interactive checklist to prepare users for Election Day.
+- 🏛️ **Constitutional Context** — Covers ECI, Model Code of Conduct, EVMs, NOTA, and more.
+- 📱 **Fully Responsive** — Works seamlessly on mobile, tablet, and desktop.
+- ⚡ **Fast & Modern UI** — Built with React 19, smooth animations, and a premium dark-mode design.
 
 ---
 
@@ -49,15 +50,16 @@ elec/
 ├── src/
 │   ├── assets/              # Static images and SVGs
 │   ├── components/
-│   │   ├── Chat.jsx         # AI chat interface component
+│   │   ├── Chat.jsx         # AI chat interface (Gemini API)
 │   │   ├── Quiz.jsx         # Quiz / flashcard component
 │   │   ├── Timeline.jsx     # Election timeline component
-│   │   └── MythBuster.jsx   # Myth buster component
+│   │   ├── MythBuster.jsx   # Myth buster component
+│   │   └── VoterGuide.jsx   # Personalized checklist component
 │   ├── test/                # Vitest unit tests
 │   │   ├── Chat.test.jsx
 │   │   ├── Quiz.test.jsx
 │   │   └── setup.js
-│   ├── App.jsx              # Root app component with routing
+│   ├── App.jsx              # Root app component with navigation
 │   ├── index.css            # Global design system & accessibility styles
 │   └── main.jsx             # React entry point
 ├── Dockerfile               # Multi-stage Docker build
