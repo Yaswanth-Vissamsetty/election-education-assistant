@@ -6,7 +6,7 @@ An interactive, gamified web application that educates users about the **Indian 
 
 ## 🌐 Live Demo
 
-> Deployed on Google Cloud Run — link will be available after deployment.
+https://election-education-assistant-463667389889.asia-south1.run.app/)
 
 ---
 
