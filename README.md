@@ -6,7 +6,7 @@ An interactive, gamified web application that educates users about the **Indian 
 
 ## 🌐 Live Demo
 
-https://election-education-assistant-463667389889.asia-south1.run.app/)
+> **Live Application:** [https://election-education-assistant-463667389889.asia-south1.run.app/](https://election-education-assistant-463667389889.asia-south1.run.app/)
 
 ---
 
@@ -15,23 +15,10 @@ https://election-education-assistant-463667389889.asia-south1.run.app/)
 - 🧠 **AI-Powered Chat** — Ask any question about Indian elections and get instant, informative answers
 - 📅 **Election Timeline** — Visual, interactive timeline of the Indian electoral process from announcement to result
 - 🎯 **Quiz / Flashcards** — Gamified learning with multiple-choice questions and flashcard-style civic facts
+- 🛡️ **Myth Buster** — Separating facts from rumors about EVMs, NOTA, and the voting process
 - 🏛️ **Constitutional Context** — Covers ECI, Model Code of Conduct, EVMs, NOTA, and more
 - 📱 **Fully Responsive** — Works seamlessly on mobile, tablet, and desktop
 - ⚡ **Fast & Modern UI** — Built with React 19, smooth animations, and a premium dark-mode design
-
----
-
-## 🛠️ Tech Stack
-
-| Layer | Technology |
-|---|---|
-| Frontend Framework | React 19 + Vite 8 |
-| Routing | React Router DOM v7 |
-| Icons | Lucide React |
-| Styling | Vanilla CSS (custom design system) |
-| Build Tool | Vite |
-| Containerization | Docker + Nginx |
-| Deployment | Google Cloud Run |
 
 ---
 
@@ -47,16 +34,18 @@ elec/
 │   ├── components/
 │   │   ├── Chat.jsx         # AI chat interface component
 │   │   ├── Quiz.jsx         # Quiz / flashcard component
-│   │   └── Timeline.jsx     # Election timeline component
+│   │   ├── Timeline.jsx     # Election timeline component
+│   │   └── MythBuster.jsx   # Myth buster component
+│   ├── test/                # Vitest unit tests
+│   │   ├── Chat.test.jsx
+│   │   ├── Quiz.test.jsx
+│   │   └── setup.js
 │   ├── App.jsx              # Root app component with routing
-│   ├── App.css              # App-level styles
-│   ├── index.css            # Global design system & CSS variables
+│   ├── index.css            # Global design system & accessibility styles
 │   └── main.jsx             # React entry point
-├── Dockerfile               # Multi-stage Docker build (Node → Nginx)
-├── nginx.conf               # Nginx config for SPA routing
-├── vite.config.js           # Vite configuration
-├── package.json             # Dependencies and scripts
-└── README.md                # This file
+├── Dockerfile               # Multi-stage Docker build
+├── vite.config.js           # Vite & Vitest configuration
+└── package.json             # Dependencies and test scripts
 ```
 
 ---
