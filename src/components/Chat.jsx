@@ -74,9 +74,9 @@ export default function Chat() {
         <p style={{ margin: 0 }}>Ask me anything about the Indian election process.</p>
       </div>
 
-      <div className="chat-messages">
+      <div className="chat-messages" role="log" aria-live="polite" aria-label="Chat messages history">
         {messages.map((msg) => (
-          <div key={msg.id} className={`message ${msg.sender}`}>
+          <div key={msg.id} className={`message ${msg.sender}`} role="article">
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.25rem', fontSize: '0.8rem', opacity: 0.8 }}>
               {msg.sender === 'bot' ? <Bot size={14} /> : <User size={14} />}
               <span>{msg.sender === 'bot' ? 'Assistant' : 'You'}</span>
@@ -100,12 +100,13 @@ export default function Chat() {
           type="text" 
           className="chat-input" 
           placeholder="Type your question..." 
+          aria-label="Ask a question about elections"
           value={inputText}
           onChange={(e) => setInputText(e.target.value)}
           onKeyPress={handleKeyPress}
         />
-        <button className="send-btn" onClick={() => handleSend()}>
-          <Send size={18} />
+        <button className="send-btn" onClick={() => handleSend()} aria-label="Send message">
+          <Send size={18} aria-hidden="true" />
         </button>
       </div>
     </div>

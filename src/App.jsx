@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import { BookOpen, Calendar, MessageSquare, ShieldCheck } from 'lucide-react';
+import { BookOpen, Calendar, MessageSquare, ShieldCheck, AlertTriangle } from 'lucide-react';
 import Timeline from './components/Timeline';
 import Quiz from './components/Quiz';
 import Chat from './components/Chat';
+import MythBuster from './components/MythBuster';
 import './index.css';
 
 function App() {
@@ -16,6 +17,8 @@ function App() {
         return <Quiz />;
       case 'chat':
         return <Chat />;
+      case 'myths':
+        return <MythBuster />;
       default:
         return <Timeline />;
     }
@@ -32,10 +35,11 @@ function App() {
         <p style={{ fontSize: '1.2rem' }}>Your Interactive Guide to the Indian Election System</p>
       </header>
 
-      <nav className="nav-tabs">
+      <nav className="nav-tabs" aria-label="Main Navigation">
         <button 
           className={`nav-tab ${activeTab === 'timeline' ? 'active' : ''}`}
           onClick={() => setActiveTab('timeline')}
+          aria-current={activeTab === 'timeline' ? 'page' : undefined}
         >
           <Calendar size={20} />
           Election Timeline
@@ -43,6 +47,7 @@ function App() {
         <button 
           className={`nav-tab ${activeTab === 'quiz' ? 'active' : ''}`}
           onClick={() => setActiveTab('quiz')}
+          aria-current={activeTab === 'quiz' ? 'page' : undefined}
         >
           <BookOpen size={20} />
           Interactive Quiz
@@ -50,15 +55,46 @@ function App() {
         <button 
           className={`nav-tab ${activeTab === 'chat' ? 'active' : ''}`}
           onClick={() => setActiveTab('chat')}
+          aria-current={activeTab === 'chat' ? 'page' : undefined}
         >
           <MessageSquare size={20} />
           Election Assistant Chat
+        </button>
+        <button 
+          className={`nav-tab ${activeTab === 'myths' ? 'active' : ''}`}
+          onClick={() => setActiveTab('myths')}
+          aria-current={activeTab === 'myths' ? 'page' : undefined}
+        >
+          <AlertTriangle size={20} />
+          Myth Buster
         </button>
       </nav>
 
       <main className="content-area">
         {renderContent()}
       </main>
+
+      <section className="glass-panel" style={{ marginTop: '3rem', borderLeft: '4px solid var(--blue-accent)' }}>
+        <h3 style={{ fontSize: '1rem', marginBottom: '0.75rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+          <ShieldCheck size={18} color="var(--blue-accent)" /> 
+          Verified Resources
+        </h3>
+        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '1rem' }}>
+          <a href="https://voters.eci.gov.in/" target="_blank" rel="noopener noreferrer" className="quick-reply-btn" style={{ textDecoration: 'none' }}>
+            Search Name in Voter List (ECI)
+          </a>
+          <a href="https://www.google.com/search?q=nearest+polling+station" target="_blank" rel="noopener noreferrer" className="quick-reply-btn" style={{ textDecoration: 'none' }}>
+            Find My Polling Station (Google)
+          </a>
+          <a href="https://voterportal.eci.gov.in/" target="_blank" rel="noopener noreferrer" className="quick-reply-btn" style={{ textDecoration: 'none' }}>
+            Register to Vote
+          </a>
+        </div>
+      </section>
+
+      <footer style={{ marginTop: '4rem', textAlign: 'center', color: 'var(--text-muted)', borderTop: '1px solid var(--panel-border)', paddingTop: '2rem' }}>
+        <p>© 2026 DemocraLearn India. Built for Civic Empowerment 🇮🇳</p>
+      </footer>
     </div>
   );
 }

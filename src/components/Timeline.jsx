@@ -45,14 +45,14 @@ export default function Timeline() {
     <div className="glass-panel" style={{ maxWidth: '800px', margin: '0 auto' }}>
       <h2 style={{ textAlign: 'center', marginBottom: '2rem' }}>The Election Process</h2>
       
-      <div className="timeline">
+      <div className="timeline" role="list">
         {timelineEvents.map((event, index) => (
-          <div key={event.id} className="timeline-item glass-panel" style={{ marginBottom: '1.5rem', marginLeft: '2rem' }}>
-            <div className="timeline-icon">
+          <div key={event.id} className="timeline-item glass-panel" style={{ marginBottom: '1.5rem', marginLeft: '2rem' }} role="listitem">
+            <div className="timeline-icon" aria-hidden="true">
               {index === 0 ? <CheckCircle2 size={16} /> : <Circle size={16} />}
             </div>
             <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginBottom: '0.5rem' }}>
-              <span style={{ fontSize: '2rem' }}>{event.icon}</span>
+              <span style={{ fontSize: '2rem' }} role="img" aria-label={event.title}>{event.icon}</span>
               <h3 style={{ margin: 0 }}>Step {event.id}: {event.title}</h3>
             </div>
             <p style={{ margin: 0 }}>{event.description}</p>

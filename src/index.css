@@ -230,6 +230,14 @@ button.primary-btn {
   transition: background 0.3s ease;
 }
 
+button.primary-btn:focus-visible, 
+.nav-tab:focus-visible,
+.chat-input:focus-visible,
+.flashcard:focus-visible {
+  outline: 2px solid var(--accent-saffron);
+  outline-offset: 2px;
+}
+
 button.primary-btn:hover {
   background: #2563eb;
 }
@@ -333,4 +341,48 @@ button.primary-btn:hover {
 .quick-reply-btn:hover {
   background: var(--blue-accent);
   color: white;
+}
+
+/* Myth Buster Styles */
+.myth-buster-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+.myth-card-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.myth-box {
+  border-left: 4px solid #ef4444;
+  background: rgba(239, 68, 68, 0.05);
+}
+
+.fact-box {
+  border-left: 4px solid var(--accent-green);
+  background: rgba(19, 136, 8, 0.05);
+}
+
+.label-myth {
+  color: #ef4444;
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: 0.75rem;
+  letter-spacing: 0.05em;
+  margin-bottom: 0.5rem;
+  display: block;
+}
+
+.label-fact {
+  color: var(--accent-green);
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: 0.75rem;
+  letter-spacing: 0.05em;
+  margin-bottom: 0.5rem;
+  display: block;
 }

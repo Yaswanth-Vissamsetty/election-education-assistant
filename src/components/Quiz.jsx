@@ -54,16 +54,24 @@ export default function Quiz() {
       </div>
 
       <div className="flashcard-container">
-        <div className={`flashcard ${isFlipped ? 'flipped' : ''}`} onClick={handleFlip}>
+        <div 
+          className={`flashcard ${isFlipped ? 'flipped' : ''}`} 
+          onClick={handleFlip}
+          onKeyDown={(e) => (e.key === 'Enter' || e.key === ' ') && handleFlip()}
+          tabIndex="0"
+          role="button"
+          aria-pressed={isFlipped}
+          aria-label={`Flashcard: ${currentCard.question}. Click or press space to reveal answer.`}
+        >
           <div className="flashcard-face glass-panel">
             <h3 style={{ color: 'var(--accent-saffron)', fontSize: '1.5rem', marginBottom: '1rem' }}>Question {currentIndex + 1} of {flashcards.length}</h3>
             <p style={{ fontSize: '1.25rem', color: 'white' }}>{currentCard.question}</p>
             <div style={{ position: 'absolute', bottom: '1rem', display: 'flex', alignItems: 'center', gap: '0.5rem', color: 'var(--text-muted)' }}>
-              <RotateCw size={16} /> Click to flip
+              <RotateCw size={16} aria-hidden="true" /> Click or press space to flip
             </div>
           </div>
           
-          <div className="flashcard-face flashcard-back glass-panel">
+          <div className="flashcard-face flashcard-back glass-panel" aria-hidden={!isFlipped}>
             <h3 style={{ color: 'var(--accent-green)', fontSize: '1.5rem', marginBottom: '1rem' }}>Answer</h3>
             <p style={{ fontSize: '1.1rem', color: 'white' }}>{currentCard.answer}</p>
           </div>
@@ -71,7 +79,12 @@ export default function Quiz() {
       </div>
 
       <div className="quiz-controls">
-        <button className="primary-btn" onClick={handleNext} style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+        <button 
+          className="primary-btn" 
+          onClick={handleNext} 
+          style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}
+          aria-label="Next Question"
+        >
           Next Question <ChevronRight size={18} />
         </button>
       </div>
