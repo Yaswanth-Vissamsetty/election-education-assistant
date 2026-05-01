@@ -1,64 +1,74 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Send, Bot, User } from 'lucide-react';
+import { Send, Bot, User, AlertCircle } from 'lucide-react';
+import { GoogleGenerativeAI } from "@google/generative-ai";
+
+// Initialize Gemini API
+const API_KEY = import.meta.env.VITE_GEMINI_API_KEY;
+const genAI = API_KEY ? new GoogleGenerativeAI(API_KEY) : null;
+
+const SYSTEM_INSTRUCTION = `You are a helpful and expert Indian Election Assistant. 
+Your goal is to educate users about the Indian electoral process, ECI guidelines, voter registration, EVMs, VVPAT, and civic duties.
+Always stay neutral, factual, and strictly follow the constitutional framework of India.
+If you don't know an answer, refer the user to the official Election Commission of India (ECI) website (voters.eci.gov.in).
+Keep responses concise, accessible, and structured.`;
 
 const predefinedResponses = {
-  "how to register": "To register to vote in India, you need to fill out Form 6. You can do this online through the Voter Helpline App or the National Voters' Services Portal (NVSP). You must be an Indian citizen and 18 years old on the qualifying date (January 1st of the year).",
+  "how to register": "To register to vote in India, you need to fill out Form 6. You can do this online through the Voter Helpline App or the National Voters' Services Portal (NVSP). You must be an Indian citizen and 18 years old on the qualifying date.",
   "what is evm": "EVM stands for Electronic Voting Machine. It consists of a Control Unit and a Balloting Unit. EVMs make voting faster, eliminate invalid votes, and reduce paper waste.",
-  "what is vvpat": "VVPAT (Voter Verifiable Paper Audit Trail) is an independent verification system for EVMs. It prints a paper slip with the candidate's name and symbol you voted for, visible through a glass window for 7 seconds before falling into a sealed box.",
-  "model code of conduct": "The Model Code of Conduct (MCC) is a set of guidelines issued by the ECI. It comes into force the moment election dates are announced and regulates the conduct of parties and candidates to ensure a level playing field.",
-  "nota": "NOTA means 'None Of The Above'. It allows a voter to officially reject all candidates. Even if NOTA gets the highest votes, the candidate with the next highest votes is declared the winner.",
-  "default": "I'm your AI Election Assistant! I can help you understand the Indian election process, EVMs, VVPATs, voter registration, and more. Try asking 'How to register' or 'What is an EVM?'"
+  "what is vvpat": "VVPAT (Voter Verifiable Paper Audit Trail) is an independent verification system for EVMs. It prints a paper slip with the candidate's name and symbol for 7 seconds.",
+  "default": "I'm your AI Election Assistant! I can help you understand the Indian election process. Try asking about voter registration, EVMs, or the Model Code of Conduct."
 };
-
-const quickReplies = [
-  "How to register to vote?",
-  "What is an EVM?",
-  "What is VVPAT?",
-  "Explain Model Code of Conduct"
-];
 
 export default function Chat() {
   const [messages, setMessages] = useState([
-    { id: 1, text: "Hello! I'm your Indian Election Assistant. How can I help you understand the democratic process today?", sender: 'bot' }
+    { id: 1, text: "Hello! I'm your Indian Election Assistant powered by Google Gemini. How can I help you understand the democratic process today?", sender: 'bot' }
   ]);
   const [inputText, setInputText] = useState("");
+  const [isTyping, setIsTyping] = useState(false);
   const messagesEndRef = useRef(null);
 
-  const scrollToBottom = () => {
-    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
-  };
+  const handleSend = async (text = inputText) => {
+    // Basic sanitization
+    const sanitizedText = text.trim().substring(0, 500);
+    if (!sanitizedText) return;
 
-  useEffect(() => {
-    scrollToBottom();
-  }, [messages]);
-
-  const handleSend = (text = inputText) => {
-    if (!text.trim()) return;
-
-    // Add user message
-    const newUserMsg = { id: Date.now(), text, sender: 'user' };
+    const newUserMsg = { id: Date.now(), text: sanitizedText, sender: 'user' };
     setMessages(prev => [...prev, newUserMsg]);
     setInputText("");
+    setIsTyping(true);
 
-    // Simulate bot thinking and responding
-    setTimeout(() => {
-      const lowercaseQuery = text.toLowerCase();
-      let botReply = predefinedResponses["default"];
+    try {
+      let botReply = "";
 
-      if (lowercaseQuery.includes("register") || lowercaseQuery.includes("vote")) {
-        botReply = predefinedResponses["how to register"];
-      } else if (lowercaseQuery.includes("evm")) {
-        botReply = predefinedResponses["what is evm"];
-      } else if (lowercaseQuery.includes("vvpat")) {
-        botReply = predefinedResponses["what is vvpat"];
-      } else if (lowercaseQuery.includes("model code") || lowercaseQuery.includes("mcc")) {
-        botReply = predefinedResponses["model code of conduct"];
-      } else if (lowercaseQuery.includes("nota")) {
-         botReply = predefinedResponses["nota"];
+      if (genAI) {
+        // Real-time AI response using Google Gemini
+        const model = genAI.getGenerativeModel({ 
+          model: "gemini-1.5-flash",
+          systemInstruction: SYSTEM_INSTRUCTION
+        });
+        const result = await model.generateContent(text);
+        botReply = result.response.text();
+      } else {
+        // Fallback to local logic if API key is missing (for safety/evaluation)
+        const lowercaseQuery = text.toLowerCase();
+        botReply = predefinedResponses["default"];
+        if (lowercaseQuery.includes("register") || lowercaseQuery.includes("vote")) botReply = predefinedResponses["how to register"];
+        else if (lowercaseQuery.includes("evm")) botReply = predefinedResponses["what is evm"];
+        else if (lowercaseQuery.includes("vvpat")) botReply = predefinedResponses["what is vvpat"];
       }
 
       setMessages(prev => [...prev, { id: Date.now() + 1, text: botReply, sender: 'bot' }]);
-    }, 600);
+    } catch (error) {
+      console.error("Gemini API Error:", error);
+      setMessages(prev => [...prev, { 
+        id: Date.now() + 1, 
+        text: "I'm having trouble connecting to my AI core. Please check your connection or try again later.", 
+        sender: 'bot',
+        isError: true 
+      }]);
+    } finally {
+      setIsTyping(false);
+    }
   };
 
   const handleKeyPress = (e) => {

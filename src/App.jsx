@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
-import { BookOpen, Calendar, MessageSquare, ShieldCheck, AlertTriangle } from 'lucide-react';
+import { BookOpen, Calendar, MessageSquare, ShieldCheck, AlertTriangle, CheckSquare } from 'lucide-react';
 import Timeline from './components/Timeline';
 import Quiz from './components/Quiz';
 import Chat from './components/Chat';
 import MythBuster from './components/MythBuster';
+import VoterGuide from './components/VoterGuide';
 import './index.css';
 
 function App() {
@@ -19,6 +20,8 @@ function App() {
         return <Chat />;
       case 'myths':
         return <MythBuster />;
+      case 'guide':
+        return <VoterGuide />;
       default:
         return <Timeline />;
     }
@@ -67,6 +70,14 @@ function App() {
         >
           <AlertTriangle size={20} />
           Myth Buster
+        </button>
+        <button 
+          className={`nav-tab ${activeTab === 'guide' ? 'active' : ''}`}
+          onClick={() => setActiveTab('guide')}
+          aria-current={activeTab === 'guide' ? 'page' : undefined}
+        >
+          <CheckSquare size={20} />
+          Voter Guide
         </button>
       </nav>
 

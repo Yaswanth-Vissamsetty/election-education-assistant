@@ -1,12 +1,29 @@
-# 🗳️ Election Education Assistant
+# 🗳️ Election Education Assistant (DemocraLearn India)
 
-An interactive, gamified web application that educates users about the **Indian election system** — including timelines, processes, constitutional frameworks, and civic responsibilities. Built with React + Vite and deployed on Google Cloud Run.
+An interactive, AI-powered civic-tech solution designed to educate and empower Indian voters. Built for the Google Antigravity Challenge.
 
 ---
 
 ## 🌐 Live Demo
-
 > **Live Application:** [https://election-education-assistant-463667389889.asia-south1.run.app/](https://election-education-assistant-463667389889.asia-south1.run.app/)
+
+---
+
+## 🎯 Project Overview
+
+### Chosen Vertical: Civic-Tech & Education
+This project focuses on **Democracy and Civic Engagement**. In a country with nearly a billion voters, understanding the complex electoral process is crucial. DemocraLearn India serves as a digital bridge between complex ECI regulations and the common citizen.
+
+### Approach & Logic
+1.  **AI-First Education:** Instead of static FAQs, we use **Google Gemini API** to provide dynamic, context-aware answers to complex voter queries.
+2.  **Gamified Learning:** We use a flashcard system to turn "boring" constitutional facts into an engaging memory game, increasing knowledge retention.
+3.  **Visual Transparency:** The interactive timeline demystifies the multi-stage election process, providing clarity on everything from the Model Code of Conduct to Results day.
+4.  **Myth Busting:** A dedicated module addresses common misinformation (e.g., EVM hacking rumors) with verified facts to strengthen trust in democratic institutions.
+
+### Meaningful Google Services Integration
+- **Google Gemini API:** Powers the core Chat Assistant, allowing it to handle diverse queries that hardcoded logic cannot.
+- **Google Cloud Run:** Provides a scalable, serverless environment for global access.
+- **Google Search Integration:** Deep-linked "Find My Polling Station" actions leveraging Google's real-world search data.
 
 ---
 
